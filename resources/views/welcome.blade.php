@@ -77,7 +77,6 @@
                                             document.getElementById('background').classList.add('!hidden');
                                         "
                                     />
-                                    <div></div>
                                     <img
                                         src="https://laravel.com/assets/img/welcome/docs-dark.svg"
                                         alt="Laravel documentation screenshot"
