@@ -86,7 +86,7 @@
     <a href="#"> <p class="mt-3 ml-5 " > About us</p></a>
     <a href="#"> <p class="mt-3 ml-5 " > Our Purpose</p></a>
     <a href="#"> <p class="mt-3 ml-5 " > Reviews</p></a>
-    <a href="#"> <p class=" ml-80 " > Contact us <br>Available via Phone, Email or live chat!</p></a>
+    <a href="#"> <p class=" ml-80 " > Contact us ,<br>Available via Phone, Email or live chat!</p></a>
     
     
 
