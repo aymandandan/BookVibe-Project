@@ -1,11 +1,16 @@
 <?php
 
+use App\Http\Controllers\homecontroller;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Welcomecontroller;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [Welcomecontroller::class,'welcome'])->name('welcome');
+Route::get('/home', [homecontroller::class,'index'])->name('home.index');
+
+/*Route::get('/home', function () {
+    return "hello world";
+});*/
 
 Route::get('/dashboard', function () {
     return view('dashboard');

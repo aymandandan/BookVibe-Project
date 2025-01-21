@@ -1,3 +1,85 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.Readme{
+    margin-top: 15%;
+    margin-left: 5%;
+    padding: 13px;
+    color: aliceblue;
+    align-self: hover;
+   
+    border-radius: 10px;
+}
+.pbook{
+    text-align: center;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0,0.4);
+   color: rgb(245, 239, 239);
+
+  letter-spacing: 5px;
+  font-size: 30px;
+ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+.font{
+    color: rgb(161, 161, 29);
+    font-size: 18px;
+}
+.container{
+    display: flex;
+    
+    position: relative;
+}
+.item{
+position: relative;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+width: 200px;
+height: 200px;
+display: flex;
+justify-content: center;
+text-align: center;
+align-items: center;
+border-radius: 20px;
+margin-top: 30px;
+margin-left: 50px;
+
+box-shadow: 3px 3px 6px rgba(0, 0, 0,0.4);
+
+}
+.item:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+    transform: scale(1.05); /* Slightly scale up on hover */
+}
+.t{
+    margin-top: 80px;
+}
+.imges1{
+    position: absolute;
+    top: 20px;
+    height: 100px;
+    text-align: center;
+    width: 140px;
+    left: 20px;
+ 
+}
+.item1{
+    z-index:  0;
+}
+.item2{
+    z-index: 1;
+    
+}
+.item3{
+    z-index: 2;
+}
+.item4{
+    z-index: 3;
+}
+.item5{
+    z-index: 4;
+}
+.base{
+    margin: 5%;
+}
+.aboutus{
+    z-index: 0;
+}
