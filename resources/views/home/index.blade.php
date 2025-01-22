@@ -79,14 +79,14 @@
 
 </div>
 <footer>
-    <div class="base " style="  color: white ">
+    <div class="base " style="  color: rgb(201, 201, 30) ">
     <div class="container h-[200px] ">
-    <div class="aboutus w-[1000px] " style="background-color:rgb(201, 201, 30)">
+    <div class="aboutus w-[1000px] " style="background-color:#3C445B">
      <p class="mt-5 ml-5 font-bold" > BookVibes</p>
     <a href="#"> <p class="mt-3 ml-5 " > About us</p></a>
     <a href="#"> <p class="mt-3 ml-5 " > Our Purpose</p></a>
     <a href="#"> <p class="mt-3 ml-5 " > Reviews</p></a>
-    <a href="#"> <p class=" ml-80 " > Contact us ,<br>Available via Phone, Email or live chat!</p></a>
+    <a href="#"> <p class=" ml-80 " > Contact us <br>Available via Phone, Email or live chat!</p></a>
     
     
 
