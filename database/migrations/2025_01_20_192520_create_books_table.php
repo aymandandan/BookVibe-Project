@@ -22,10 +22,12 @@ return new class extends Migration {
             $table->date('publish_date')->nullable();
             $table->string('publisher')->nullable();
             $table->string('language')->nullable();
+            $table->string('cover_img')->nullable();
             $table->string('dimensions')->nullable();
             $table->unsignedInteger('stock_qty')->default(0);
             $table->decimal('size', 8, 2)->default(0);
             $table->string('format')->nullable();
+            $table->string('file_path')->nullable();
             $table->timestamps();
         });
     }
