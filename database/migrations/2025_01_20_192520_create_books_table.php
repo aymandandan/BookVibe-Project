@@ -12,12 +12,12 @@ return new class extends Migration {
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->longText('description');
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('author_id')->constrained('authors');
             $table->enum('type', ['hard_book', 'e_book'])->default('hard_book');
-            $table->integer('page_nb')->default(0);
+            $table->unsignedInteger('page_nb')->default(0);
             $table->decimal('price', 8, 2)->default(0);
             $table->date('publish_date')->nullable();
             $table->string('publisher')->nullable();
