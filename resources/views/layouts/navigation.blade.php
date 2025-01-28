@@ -1,4 +1,4 @@
-<nav x-data="{ open: false, sidebar_open: false }" class="bg-indigo-600 border-b border-gray-100 z-10 sticky">
+<nav x-data="{ open: false, sidebar_open: false }" class="bg-indigo-600 border-b border-gray-100 z-10 sticky top-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -220,17 +220,7 @@
 
     <!-- SideBar -->
     <div :class="{ 'hidden': !sidebar_open, 'flex': sidebar_open }" class="absolute w-full overflow-hidden">
-        <div class="bg-gray-50 left-0 w-64 h-auto z-10 overflow-auto shadow shadow-grey-200">
-            <p class="flex text-center w-full p-3 text-bold text-2xl">
-                Book Types
-            </p>
-            <x-sidebar-link>
-                Hard Books
-            </x-sidebar-link>
-            <x-sidebar-link>
-                eBooks
-            </x-sidebar-link>
-        </div>
+        @include('components.sidebar', $categories)
         <div class="absolute z-0 left-0 right-0 top-0 bottom-0" @click="sidebar_open = false"></div>
     </div>
 </nav>
