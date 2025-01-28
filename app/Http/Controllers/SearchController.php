@@ -11,6 +11,7 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $search = $request->get("search_input");
+        Session::put('search_type', 'normal');
 
         if ($search) {
             $books = DB::table('books as b')
