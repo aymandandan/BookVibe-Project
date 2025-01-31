@@ -1,6 +1,6 @@
 <div class=" bg-white flex gap-2 flex-col rounded-lg py-4 px-3 w-auto shadow-lg">
     <a href="#" class="w-full h-auto flex items-center justify-center bg-gray-100 p-0.5 rounded-sm">
-        <img alt="book cover" src="{{ $book->cover_img }}" class="card-img" />
+        <img alt="book cover" src="{{ asset($book->cover_img) }}" class="card-img" />
     </a>
 
     <a href="#" class="text-center">
