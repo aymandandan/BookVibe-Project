@@ -38,7 +38,7 @@ class SearchController extends Controller
 
     public function searchCategory(Request $request)
     {
-        $category = $request->get('special_search_value');
+        $category = urldecode($request->get('special_search_value'));
         Session::put('search_type', 'category');
         Session::put('search_category', $category);
 
@@ -46,7 +46,7 @@ class SearchController extends Controller
             ->join('categories as c', 'c.id', '=', 'b.category_id')
             ->join('authors as a', 'a.id', '=', 'b.author_id')
             ->select('b.*', 'c.name as category_name', 'a.name as author_name')
-            ->where('c.name', '=', $category)
+            ->where('c.name', 'like', $category)
             ->paginate(15)
             ->appends(['special_search_value' => $category]);
 
