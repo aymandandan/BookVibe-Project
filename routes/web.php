@@ -20,4 +20,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout',[checkoutController::class,'processCheckout'])->name('checkout_validation');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/search.php';

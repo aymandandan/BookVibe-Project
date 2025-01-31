@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use DB;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -12,6 +13,7 @@ class AppLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.app');
+        $categories = DB::table('categories')->get();
+        return view('layouts.app', ['categories' => $categories]);
     }
 }
