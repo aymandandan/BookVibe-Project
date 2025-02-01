@@ -26,7 +26,9 @@ class CartController extends Controller
 
     public function destroy($id){
         //hon b alb l $deleted bynhat number of affected rows yle heyye 1
-        $deleted = DB::table('carts')->where('id', '=', $id)->delete();
+        $deleted = DB::table('carts')
+                   ->where('id', '=', $id)
+                   ->delete();
         $this->index();
     }
 

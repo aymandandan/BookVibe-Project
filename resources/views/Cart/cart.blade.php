@@ -2,7 +2,7 @@
   <div class="flexParentContainer">
       <div class="cartsContainer">
           <div class="centeredTitle">
-            <h1> Shopping Cart</h1>
+            <h1>Shopping Cart</h1>
           </div>
           @if (!empty($cartsBookRecords))
             <div class="centeredTitle">
@@ -37,6 +37,7 @@
             <div class="descContainer">
               <h1>{{ $cartsBookRecord->book_title }}</h1>
               <h3>{{ $cartsBookRecord->description }}</h3>
+              <a href="{{ route('cart.destroy',$cartsBookRecords->cartId)}}"><img src="{{asset('images/trash.png')}}" width="20" height="20"></a>
             </div>
           </div>
           <div class="quantityContainer">
@@ -48,10 +49,10 @@
             </form>
           </div>
           <div class="pricePerItem">
-            {{ $cartsBookRecord->priceBook }}
+            ${{ $cartsBookRecord->priceBook }}
           </div>
           <div class="SubtotalPrice">
-            {{ $cartsBookRecord->totalPrice }}
+            ${{ $cartsBookRecord->totalPrice }}
           </div>
         </div>
         <hr>
