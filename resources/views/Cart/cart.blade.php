@@ -37,7 +37,7 @@
             <div class="descContainer">
               <h1>{{ $cartsBookRecord->book_title }}</h1>
               <h3>{{ $cartsBookRecord->description }}</h3>
-              <a href="{{ route('cart.destroy',$cartsBookRecords->cartId)}}"><img src="{{asset('images/trash.png')}}" width="20" height="20"></a>
+              <a href="{{ route('cart.destroy',$cartsBookRecords->cartId)}}"><img src="{{asset('assets/util_images/trash_bin.png')}}" width="20" height="20"></a>
             </div>
           </div>
           <div class="quantityContainer">

@@ -16,10 +16,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/cart',[CartController::class,'index'])->name('cart.Page');
-    Route::delete('/cart/{id}',[CartController::class,'destroy'])->name('cart.destroy');
-    Route::post('/cart/{id}',[CartController::class,'insert'])->name('add.Cart');
 });
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/search.php';
+require __DIR__ . 'cart.php';
