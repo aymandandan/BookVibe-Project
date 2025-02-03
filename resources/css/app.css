@@ -10,7 +10,7 @@
    
     border-radius: 10px;
 }
-.pbook{
+.trendbook{
     text-align: center;
     box-shadow: 3px 3px 6px rgba(0, 0, 0,0.4);
    color: rgb(245, 239, 239);
@@ -18,7 +18,7 @@
   font-size: 30px;
  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-.font{
+.font_trend_book{
     color: rgb(161, 161, 29);
     font-size: 18px;
 }
@@ -75,7 +75,7 @@ box-shadow: 3px 3px 6px rgba(0, 0, 0,0.4);
 .item5{
     z-index: 4;
 }
-.base{
+.home{
     margin: 5%;
 }
 .aboutus{
