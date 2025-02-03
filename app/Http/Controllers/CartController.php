@@ -14,7 +14,7 @@ class CartController extends Controller
         $carts_BookRecords = DB::table('carts')->join('books','carts.book_id','=','books.id')
         //here we take only the books realted to the logged-in user
         ->where('carts.user_id','=',$userId)
-        ->select('carts.id as cartId','carts.book_id as book_id','carts.user_id as user_id','carts.quantity as quantity','books.title as book_title','books.description as description','books.price as priceBook','books.cover_img as coverImage','books.type as bookType')->get();
+        ->select('carts.id as cartId','carts.book_id as book_id','carts.user_id as user_id','carts.quantity as quantity','books.title as book_title','books.description as description','books.type as type','books.price as priceBook','books.cover_img as coverImage','books.type as bookType')->get();
         $totalPriceCart = 0;
         foreach($carts_BookRecords as $item){
             $item->totalPrice = $item->quantity*$item->priceBook;
@@ -24,34 +24,38 @@ class CartController extends Controller
         return view('Cart.cart',['cartsBookRecords'=>$carts_BookRecords,'totalCost'=>$totalPriceCart]);
     }
 
-    public function destroy($id){
+    public function destroy(int $id){
         //hon b alb l $deleted bynhat number of affected rows yle heyye 1
         $deleted = DB::table('carts')
                    ->where('id', '=', $id)
                    ->delete();
-        $this->index();
+                   return redirect()->route('cart.Page');
     }
 
     //here when we click on the add To cart button from description page or home page rah nkun nehna already be3teen kl l books yle b alb l book table eza aal home page aw b alb l description page mnkun be3teen l id lal book yle bdna naamellu browse la details yle elu so bkun be3te bl anchor tag l id lal book w same b alb lhome page kl card aam tmru2 b alb l foreach aam ykun fe b alba l id lal book
-    public function insert($id){
+    public function insert(int $id){
         $userId = auth()->id();
-        $cartRec = DB::table('carts')
-                ->where('book_id', '=', $id)
-                ->where('user_id','=',$userId)
-                ->get();
-        if($cartRec->isEmpty()){
+        $cartRecord = DB::table('carts')
+                      ->where('book_id', '=', $id)
+                      ->where('user_id', '=', $userId)
+                      ->get();
+        if($cartRecord->isEmpty()){
             DB::table('carts')->insert([
                 'user_id' => $userId,
                 'book_id' => $id,
                 'quantity'=>1
             ]);
         }
-        else{
-            $affected = DB::table('carts')
-              ->where('user_id', '=',$userId) //filter over the rows inside carts table and select ones with id = currently logged-in user
-              ->where('book_id','=',$id) //filter over the rows of id = userId inside carts table and select ones with book-id = $id
-              ->update(['quantity' => $_POST['quantity']]); //update the quantity column and set it to the value sent inside the form html attribute
-              $this->index();
-        }
+        return redirect()->back();
+    }
+
+    public function updateQuantity(Request $request,int $id){
+        $userId = auth()->id();
+        $quantity = $request['quantity'];
+        $affected = DB::table('carts')
+              ->where('book_id', '=',$id)
+              ->where('user_id','=',$userId)
+              ->update(['quantity' => $quantity]);
+        return redirect()->route('cart.Page');
     }
 }

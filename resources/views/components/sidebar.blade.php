@@ -1,4 +1,4 @@
-<div class="bg-white left-0 w-64 h-auto z-10 overflow-auto shadow shadow-grey-200">
+<div class="bg-white left-0 w-64 h-screen z-10 overflow-auto shadow shadow-grey-200">
     <p class="flex text-center w-full p-3 text-bold text-2xl">
         {{ __('Book Types') }}
     </p>
@@ -15,7 +15,7 @@
     </p>
 
     @foreach ($categories as $category)
-        <x-sidebar-link action="{{ route('books.searchCategory') }}" value="{{ $category->name }}">
+        <x-sidebar-link action="{{ route('books.searchCategory') }}" value="{{ urlencode($category->name) }}">
             {{ $category->name }}
         </x-sidebar-link>
     @endforeach

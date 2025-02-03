@@ -32,27 +32,33 @@
         <div class="contentFlex" style="margin-top: 20px;margin-bottom:20px">
           <div class="imgAndDesc">
             <div class="imgContainer">
-              <img src="{{asset($cartsBookRecord->coverImage)}}" width="125" height="200">
+              <img src="{{asset('assets/util_images/book.jpeg')}}" width="125" height="200">
             </div>
             <div class="descContainer">
-              <h1>{{ $cartsBookRecord->book_title }}</h1>
-              <h3>{{ $cartsBookRecord->description }}</h3>
-              <a href="{{ route('cart.destroy',$cartsBookRecords->cartId)}}"><img src="{{asset('assets/util_images/trash_bin.png')}}" width="20" height="20"></a>
+              <h1 class="boldedHeaders">{{ $cartBookRecord->book_title }}</h1>
+              <h3>Type: {{$cartBookRecord->type }}</h3>
+              <div class="deleteBlock">  
+                  <form action="{{route('cart.destroy',$cartBookRecord->cartId)}}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <button><img src="{{asset('assets/util_images/trash_bin.png')}}" width="20" height="20"></button>
+                  </form>
+              </div>
             </div>
           </div>
           <div class="quantityContainer">
-            <form action="{{ route('add.Cart',$cartBookRecord->book_id)}}" method="POST">
+            <form action="{{ route('update.Cart',$cartBookRecord->book_id)}}" method="POST">
               @csrf
-              <input type="number" name="quantity" value="{{ $cartsBookRecord->quantity }}" min="1" class="quantityInput"><br>
+              <input type="number" name="quantity" value="{{ $cartBookRecord->quantity }}" min="1" class="quantityInput"><br>
               <!--<input type="hidden" name="idOfBook" value="">-->
-              <input type="submit" name="updateQnty" value="update_Quantity">
+              <input type="submit" name="updateQnty" value="update" class="updateButton bg-indigo-600">
             </form>
           </div>
           <div class="pricePerItem">
-            ${{ $cartsBookRecord->priceBook }}
+            ${{ $cartBookRecord->priceBook }}
           </div>
           <div class="SubtotalPrice">
-            ${{ $cartsBookRecord->totalPrice }}
+            ${{ $cartBookRecord->totalPrice }}
           </div>
         </div>
         <hr>
@@ -69,7 +75,7 @@
             <div>Items:&nbsp;&nbsp;</div>
             <div>{{ count($cartsBookRecords) }}</div>
           </div>
-          <div>{{ $totalCost }}</div>
+          <div>${{ $totalCost }}</div>
         </div>
         <div class="orderSummaryFlex" style="margin-top: 10px">
           <h1>
@@ -84,7 +90,7 @@
             Total Cost:
           </h1>
           <div>
-            ${{$totalCost + 10.00}}.00
+            ${{$totalCost + 10.00}}
           </div>
         </div>
         <hr class="hrElement">
