@@ -37,7 +37,7 @@
             </button>
         </form>
         <form class="w-fit">
-            <button
+            <button onclick=" event.preventDefault(); addtowishlist({{ $book->id }})"
                 class="w-auto px-2 py-1 bg-indigo-400 text-grey-100 shadow rounded-xl hover:bg-indigo-300 hover:text-white transition ease-in-out duration-150 fill-grey-100">
                 <x-favorite-icon />
             </button>
@@ -45,3 +45,28 @@
     </div>
 
 </div>
+<!-- JavaScript for Add to Wishlist -->
+<script>
+    function addtowishlist(bookId) {
+         // Send an AJAX request to add the book to the wishlist
+         fetch('/add-to-wishlist', {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json',
+                 'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token for Laravel
+             },
+             body: JSON.stringify({ book_id: bookId })
+         })
+         .then(response => response.json())
+         .then(data => {
+             if (data.success) {
+                 alert('Book added to wishlist!');
+             } else {
+                 alert('Failed to add book to wishlist.');
+             }
+         })
+         .catch(error => {
+             console.error('Error:', error);
+         });
+     }
+</script>
