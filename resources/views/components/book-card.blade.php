@@ -1,3 +1,15 @@
+@if(session('wishlist_success'))
+    <div class="fixed bottom-4 right-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-lg">
+        <p>{{ session('wishlist_success') }}</p>
+    </div>
+@endif
+
+@if(session('wishlist_error'))
+    <div class="fixed bottom-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-lg">
+        <p>{{ session('wishlist_error') }}</p>
+    </div>
+@endif
+
 <div class=" bg-white flex gap-2 flex-col rounded-lg py-4 px-3 w-auto shadow-lg">
     <a href="#" class="w-full h-auto flex items-center justify-center bg-gray-100 p-0.5 rounded-sm">
         <img alt="book cover" src="{{ asset($book->cover_img) }}" class="card-img" />
@@ -35,8 +47,11 @@
                 {{ __('ADD TO CART') }}
             </button>
         </form>
-        <form class="w-fit">
-            <button onclick=" event.preventDefault(); addtowishlist({{ $book->id }})"
+        <!-- Add to Wishlist Button -->
+        <form method="POST" action="{{ route('wishlist.store') }}" class="w-fit">
+            @csrf
+            <input type="hidden" name="book_id" value="{{ $book->id }}">
+            <button type="submit"
                 class="w-auto px-2 py-1 bg-indigo-400 text-grey-100 shadow rounded-xl hover:bg-indigo-300 hover:text-white transition ease-in-out duration-150 fill-grey-100">
                 <x-favorite-icon />
             </button>
@@ -44,28 +59,4 @@
     </div>
 
 </div>
-<!-- JavaScript for Add to Wishlist -->
-<script>
-    function addtowishlist(bookId) {
-         // Send an AJAX request to add the book to the wishlist
-         fetch('/add-to-wishlist', {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-                 'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token for Laravel
-             },
-             body: JSON.stringify({ book_id: bookId })
-         })
-         .then(response => response.json())
-         .then(data => {
-             if (data.success) {
-                 alert('Book added to wishlist!');
-             } else {
-                 alert('Failed to add book to wishlist.');
-             }
-         })
-         .catch(error => {
-             console.error('Error:', error);
-         });
-     }
-</script>
+

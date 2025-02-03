@@ -1,3 +1,4 @@
+
 <div class="flex flex-col gap-4">
   @forelse ($wishlistitems as $item)
       <div id="wishlist-item-{{ $item->id }}" class="bg-white flex items-center justify-between gap-6 rounded-lg py-4 px-3 w-auto h-[150px] shadow-lg">
@@ -38,7 +39,13 @@
 
               <!-- Image 2 Container -->
               <div class="flex items-center justify-center">
-                  <img src="/assets/util_images/delete_icon.png" onclick="deleteFromWishlist({{ $item->id }})" class="w-[40px] h-[40px] scale-105 hover:scale-110 transition-transform" />
+                <form action="{{ route('wishlist.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove this item from your wishlist?')">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit">
+                      <img src="/assets/util_images/delete_icon.png" class="w-[40px] h-[40px] scale-105 hover:scale-110 transition-transform" />
+                  </button>
+              </form>
               </div>
           </div>
       </div>
@@ -47,29 +54,3 @@
   @endforelse
 </div>
 
-<script>
-  function deleteFromWishlist(wishlistItemId) {
-    if (confirm("Are you sure you want to remove this book from your wishlist?")) {
-      fetch(`/wishlist/${wishlistItemId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          alert('Book removed from wishlist!');
-          // Remove the item from the UI
-          document.getElementById(`wishlist-item-${wishlistItemId}`).remove();
-        } else {
-          alert('Failed to remove book from wishlist.');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-    }
-  }
-</script>
