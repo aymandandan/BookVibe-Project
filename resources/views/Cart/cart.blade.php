@@ -32,7 +32,7 @@
         <div class="contentFlex" style="margin-top: 20px;margin-bottom:20px">
           <div class="imgAndDesc">
             <div class="imgContainer">
-              <img src="{{asset('assets/util_images/book.jpeg')}}" width="125" height="200">
+              <img src="{{asset($cartBookRecord->coverImage)}}" width="125" height="200">
             </div>
             <div class="descContainer">
               <h1 class="boldedHeaders">{{ $cartBookRecord->book_title }}</h1>
@@ -50,7 +50,6 @@
             <form action="{{ route('update.Cart',$cartBookRecord->book_id)}}" method="POST">
               @csrf
               <input type="number" name="quantity" value="{{ $cartBookRecord->quantity }}" min="1" class="quantityInput"><br>
-              <!--<input type="hidden" name="idOfBook" value="">-->
               <input type="submit" name="updateQnty" value="update" class="updateButton bg-indigo-600">
             </form>
           </div>
