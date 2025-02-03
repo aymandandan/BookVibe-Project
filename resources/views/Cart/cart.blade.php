@@ -37,7 +37,7 @@
             <div class="descContainer">
               <h1 class="boldedHeaders">{{ $cartBookRecord->book_title }}</h1>
               <h3>Type: {{$cartBookRecord->type }}</h3>
-              <div class="deleteBlock">  
+              <div class="deleteBlock">
                   <form action="{{route('cart.destroy',$cartBookRecord->cartId)}}" method="POST">
                       @csrf
                       @method('DELETE')
