@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+.trendbook{
+    text-align: center;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0,0.4);
+   color: rgb(245, 239, 239);
+  letter-spacing: 5px;
+  font-size: 30px;
+ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.font_trend_book{
+    color: rgb(161, 161, 29);
+    font-size: 18px;
+}
+.container{
+    display: flex;
+    
+    position: relative;
+}
+
+.item:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+    transform: scale(1.05); /* Slightly scale up on hover */
+}
+.t{
+    margin-top: 80px;
+}
+
+.home{
+    margin: 5%;
+}
+
+
 hr{
   height: 2px;
   background-color: black;
@@ -141,3 +172,4 @@ body{
   gap: 20px;
   flex-wrap: wrap;
 }
+
