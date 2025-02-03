@@ -33,3 +33,143 @@
 }
 
 
+hr{
+  height: 2px;
+  background-color: black;
+}
+
+body{
+  width: 100%;
+  height: 100%;
+}
+
+/* --Cart Page-- */
+.flexParentContainer{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.cartsContainer{
+  width: 100%;
+  margin: 30px 165px;
+}
+
+.titlesContainer{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.centeredTitle{
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.inlineClassContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 37%;
+  gap: 20px;
+}
+
+.boldedHeaders{
+  font-weight: bold;
+}
+
+.summaryCart{
+  background-image: linear-gradient(white,rgb(96, 96, 96));
+  width: 40%;
+  margin: 40px 165px;
+  height: 70%;
+  padding-inline: 20px;
+  padding-top: 10px;
+  box-shadow: -5px 5px 10px black;
+}
+
+.orderSummaryFlex{
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkoutLink{
+  color: white;
+  padding: 2px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.contentFlex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.imgAndDesc{
+  display: flex;
+}
+
+.quantityInput{
+  background-color: #c7c7c7;
+  width: 60px;
+  height: 10px;
+  border-radius: 10px;
+}
+
+.descContainer{
+  padding: 0px 10px;
+}
+
+.whiteText{
+  color: white;
+}
+
+.greyText{
+  color: rgb(0, 0, 0);
+  text-shadow: -3px 7px 5px black;
+}
+
+.deleteBlock{
+  margin-top: 60px;
+}
+
+.pricePerItem,.SubtotalPrice{
+  margin-inline: 7px;
+}
+
+.updateButton{
+  width: 60px;
+  color: white;
+  border-radius: 10px;
+}
+
+/* --Author's Page-- */
+/*.authorContainer{
+  
+}*/
+
+.authorName{
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0.67em 0px;
+}
+
+.firstCon{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.booksForAuthor{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
