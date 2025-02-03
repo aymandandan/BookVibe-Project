@@ -117,15 +117,18 @@ body{
 }
 
 /* --Author's Page-- */
-/*.authorContainer{
-  
-}*/
+.authorContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 
 .authorName{
   display: block;
   font-size: 2em;
   font-weight: bold;
   margin: 0.67em 0px;
+  text-align: center;
 }
 
 .firstCon{
@@ -138,6 +141,24 @@ body{
 .booksForAuthor{
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 10px;
   flex-wrap: wrap;
+}
+
+.section_Author{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  position: relative;
+  margin:20px 0;
+}
+
+.section_Author::before,.section_Author::after{
+  content: "";
+  flex: 1;
+  height: 2px;
+  background-color: black;
+  margin: 0 15px;
 }

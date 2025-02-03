@@ -16,9 +16,16 @@ class AuthorController extends Controller
                       ->first();
         
         $result = DB::table('books')
-                  ->where('author_id','=',$id)
+                  ->where('books.author_id','=',$id)
                   ->join('authors','books.author_id','=','authors.id')
-                  ->select('books.id as bookId,books.title as title,book.type as type,authors.id as authorId,authors.name as authName,authors.about as authAbout')
+                  ->select('books.id as bookId',
+                                    'books.title as title',
+                                    'books.type as type',
+                                    'books.cover_img as coverImg',
+                                    'books.price as bookPrice',
+                                    'authors.id as authorId',
+                                    'authors.name as authName',
+                                    'authors.about as authAbout')
                   ->get();
         return view('Authors.author',['authorDetails'=>$result,'authName'=>$authorInfo->name,'authAbout'=>$authorInfo->about]);
     }
