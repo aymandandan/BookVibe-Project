@@ -33,12 +33,12 @@
                       </button>
                   </form>
                   <!-- Image 1 -->
-                  <img src="/assets/util_images/image1.png" class="w-[20px] h-[20px] scale-105 hover:scale-110 transition-transform" />
+                  <img src="/assets/util_images/heart_image.png" class="w-[20px] h-[20px] scale-105 hover:scale-110 transition-transform" />
               </div>
 
               <!-- Image 2 Container -->
               <div class="flex items-center justify-center">
-                  <img src="/assets/util_images/image.png" onclick="deleteFromWishlist({{ $item->id }})" class="w-[40px] h-[40px] scale-105 hover:scale-110 transition-transform" />
+                  <img src="/assets/util_images/delete_icon.png" onclick="deleteFromWishlist({{ $item->id }})" class="w-[40px] h-[40px] scale-105 hover:scale-110 transition-transform" />
               </div>
           </div>
       </div>
