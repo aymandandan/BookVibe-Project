@@ -67,6 +67,10 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link :href="route('wishlist.index')">
+                                {{ __('Wishlist') }}
+                            </x-dropdown-link>
+
                             @if (Auth::user()->type == 'admin')
                                 <x-dropdown-link :href="route('dashboard')">
                                     {{ __('Dashboard') }}
@@ -201,10 +205,14 @@
                     </x-responsive-nav-link>
 
                     @if (Auth::user()->type)
-                    <x-responsive-nav-link :href="route('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-responsive-nav-link>
                     @endif
+
+                    <x-responsive-nav-link :href="route('wishlist.index')">
+                        {{ __('Wishlist') }}
+                    </x-responsive-nav-link>
 
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
