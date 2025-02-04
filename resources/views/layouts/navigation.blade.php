@@ -67,6 +67,16 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link :href="route('wishlist.index')">
+                                {{ __('Wishlist') }}
+                            </x-dropdown-link>
+
+                            @if (Auth::user()->type == 'admin')
+                                <x-dropdown-link :href="route('dashboard')">
+                                    {{ __('Dashboard') }}
+                                </x-dropdown-link>
+                            @endif
+
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -83,10 +93,10 @@
                     @if (Route::has('login'))
                         <nav class="-mx-3 flex flex-1 justify-end mr-2">
                             @auth
-                                <a href="{{ url('/dashboard') }}"
+                                {{-- <a href="{{ url('/dashboard') }}"
                                     class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                                     Dashboard
-                                </a>
+                                </a> --}}
                             @else
                                 <a href="{{ route('login') }}"
                                     class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
@@ -192,6 +202,16 @@
                 <div class="mt-3 space-y-1">
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
+                    </x-responsive-nav-link>
+
+                    @if (Auth::user()->type)
+                        <x-responsive-nav-link :href="route('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-responsive-nav-link>
+                    @endif
+
+                    <x-responsive-nav-link :href="route('wishlist.index')">
+                        {{ __('Wishlist') }}
                     </x-responsive-nav-link>
 
                     <!-- Authentication -->
