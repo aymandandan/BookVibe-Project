@@ -21,7 +21,7 @@
 
     <div class="text-sm">
         @if ($book->author_name)
-            {{ $book->author_name }}
+         <a href="{{route('authorPage',$book->author_id)}}">{{ $book->author_name }}</a>
         @endif
     </div>
 
@@ -41,7 +41,8 @@
     </div>
 
     <div class="w-auto flex flex-row gap-2 justify-between mt-auto">
-        <form class="w-full">
+        <form class="w-full" action="{{route('add.Cart',$book->id)}}" method="POST">
+            @csrf
             <button
                 class="w-full bg-primary-500 rounded-xl shadow text-grey-100 py-1 sm:px-1 px-2 hover:bg-primary-400 hover:text-white transition ease-in-out duration-150">
                 {{ __('ADD TO CART') }}

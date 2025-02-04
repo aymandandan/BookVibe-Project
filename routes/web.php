@@ -3,10 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'admin'])->name('dashboard');
@@ -20,3 +16,6 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/search.php';
 require __DIR__ . '/wishlist.php';
+require __DIR__ . '/home.php';
+require __DIR__ . '/cart.php';
+require __DIR__ . '/author.php';
