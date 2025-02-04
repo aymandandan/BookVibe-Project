@@ -1,3 +1,4 @@
+{{-- <!--
 @if(session('wishlist_success'))
     <div class="fixed bottom-4 right-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-lg">
         <p>{{ session('wishlist_success') }}</p>
@@ -9,7 +10,7 @@
         <p>{{ session('wishlist_error') }}</p>
     </div>
 @endif
-
+--> --}}
 <div class=" bg-white flex gap-2 flex-col rounded-lg py-4 px-3 w-auto shadow-lg">
     <a href="#" class="w-full h-auto flex items-center justify-center bg-gray-100 p-0.5 rounded-sm">
         <img alt="book cover" src="{{ asset($book->cover_img) }}" class="card-img" />
