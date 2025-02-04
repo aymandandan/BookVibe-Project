@@ -51,7 +51,7 @@
         <form method="POST" action="{{ route('wishlist.store') }}" class="w-fit">
             @csrf
             <input type="hidden" name="book_id" value="{{ $book->id }}">
-            //this for the id 
+            
             
             <button type="submit"
                 class="w-auto px-2 py-1 bg-indigo-400 text-grey-100 shadow rounded-xl hover:bg-indigo-300 hover:text-white transition ease-in-out duration-150 fill-grey-100">
