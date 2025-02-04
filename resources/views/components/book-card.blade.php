@@ -47,7 +47,7 @@
                 {{ __('ADD TO CART') }}
             </button>
         </form>
-<<<<<<< HEAD
+
         <!-- Add to Wishlist Button -->
         <form method="POST" action="{{ route('wishlist.store') }}" class="w-fit">
             @csrf
@@ -55,10 +55,6 @@
             
             
             <button type="submit"
-=======
-        <form class="w-fit">
-            <button
->>>>>>> 0e4133e643570e319d05b67b61d2ba8a58fa9688
                 class="w-auto px-2 py-1 bg-indigo-400 text-grey-100 shadow rounded-xl hover:bg-indigo-300 hover:text-white transition ease-in-out duration-150 fill-grey-100">
                 <x-favorite-icon />
             </button>
@@ -66,7 +62,3 @@
     </div>
 
 </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 0e4133e643570e319d05b67b61d2ba8a58fa9688
