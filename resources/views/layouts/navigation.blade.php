@@ -67,9 +67,9 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
-                            <x-dropdown-link :href="route('wishlist.index')">
+                            {{-- <x-dropdown-link :href="route('wishlist.index')">
                                 {{ __('Wishlist') }}
-                            </x-dropdown-link>
+                            </x-dropdown-link> --}}
 
                             @if (Auth::user()->type == 'admin')
                                 <x-dropdown-link :href="route('dashboard')">
@@ -210,9 +210,9 @@
                         </x-responsive-nav-link>
                     @endif
 
-                    <x-responsive-nav-link :href="route('wishlist.index')">
+                    {{-- <x-responsive-nav-link :href="route('wishlist.index')">
                         {{ __('Wishlist') }}
-                    </x-responsive-nav-link>
+                    </x-responsive-nav-link> --}}
 
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
@@ -239,7 +239,7 @@
     </div>
 
     <!-- SideBar -->
-    <div :class="{ 'hidden': !sidebar_open, 'flex': sidebar_open }" class="absolute w-full overflow-hidden">
+    <div :class="{ 'hidden': !sidebar_open, 'flex': sidebar_open }" class="hidden absolute w-full overflow-hidden">
         @include('components.sidebar', $categories)
         <div class="absolute z-0 left-0 right-0 top-0 bottom-0" @click="sidebar_open = false"></div>
     </div>

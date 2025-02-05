@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use DB;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -12,7 +13,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->route('books.search');
     }
 
     /**
@@ -20,7 +21,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $categories = DB::table('categories')->get()->all();
+        $authors = DB::table('authors')->get()->all();
+        return view('books.add', compact('categories', 'authors'));
     }
 
     /**
@@ -28,15 +31,67 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'cover_img' => ['nullable', 'file', 'image'],
+            'page_nb' => ['nullable', 'numeric', 'gte:0'],
+            'price' => ['nullable', 'numeric', 'gte:0'],
+            'stock_qty' => ['nullable', 'numeric', 'gte:0'],
+            'size' => ['nullable', 'numeric', 'gte:0'],
+            'category_id' => ['numeric'],
+            'author_id' => ['numeric'],
+            'type' => ['string'],
+            'publish_date' => ['nullable'],
+            'publisher' => ['nullable'],
+            'language' => ['nullable'],
+            'dimensions' => ['nullable'],
+            'format' => ['nullable'],
+            'file_path' => ['nullable', 'file'],
+        ]);
+
+        if (!$data['page_nb'])
+            $data['page_nb'] = 1;
+
+        if (!$data['price'])
+            $data['price'] = 0;
+
+        if (!$data['stock_qty'])
+            $data['stock_qty'] = 0;
+
+        if (!$data['page_nb'])
+            $data['page_nb'] = 1;
+
+        if ($request->hasFile('cover_img')) {
+            $img = $request->file('cover_img');
+            $path = $img->store('assets/pictures/BookCovers', 'public'); // Store in storage/app/public
+            $data['cover_img'] = 'storage/' . $path; // Path is relative to storage/app/public
+        }
+
+        if ($request->hasFile('file_path')) {
+            $img = $request->file('file_path');
+            $path = $img->store('assets/files/eBooks', 'public'); // Store in storage/app/public
+            $data['file_path'] = 'storage/' . $path; // Path is relative to storage/app/public
+        }
+
+        DB::table('books')->insert($data);
+
+        return redirect()->route('dashboard');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(string $id)
     {
-        //
+        $book = DB::table('books', 'b')
+            ->join('authors as a', 'b.author_id', '=', 'a.id')
+            ->join('categories as c', 'b.category_id', '=', 'c.id')
+            ->where('b.id', '=', $id)
+            ->get()->first();
+        if ($book) {
+            return view('books.details', ['book' => $book]);
+        }
     }
 
     /**
