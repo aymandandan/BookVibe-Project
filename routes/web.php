@@ -1,6 +1,12 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\checkoutController;
+=======
+
+use App\Http\Controllers\checkoutController;
+use App\Http\Controllers\CartController;
+>>>>>>> 746fd7efe9fa8e3d7904bd3754646080bcbb59cc
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +24,13 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/search.php';
+<<<<<<< HEAD
 require __DIR__ . '/wishlist.php';
 require __DIR__ . '/home.php';
 require __DIR__ . '/cart.php';
 require __DIR__ . '/author.php';
 require __DIR__ . '/checkout.php';
 require __DIR__ . '/confirm.php';
+=======
+require __DIR__ . '/cart.php';
+>>>>>>> 746fd7efe9fa8e3d7904bd3754646080bcbb59cc
