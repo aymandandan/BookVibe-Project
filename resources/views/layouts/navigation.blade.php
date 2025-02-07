@@ -67,9 +67,9 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
-                            {{-- <x-dropdown-link :href="route('wishlist.index')">
+                            <x-dropdown-link :href="route('wishlist.index')">
                                 {{ __('Wishlist') }}
-                            </x-dropdown-link> --}}
+                            </x-dropdown-link>
 
                             @if (Auth::user()->type == 'admin')
                                 <x-dropdown-link :href="route('dashboard')">
@@ -210,9 +210,9 @@
                         </x-responsive-nav-link>
                     @endif
 
-                    {{-- <x-responsive-nav-link :href="route('wishlist.index')">
+                    <x-responsive-nav-link :href="route('wishlist.index')">
                         {{ __('Wishlist') }}
-                    </x-responsive-nav-link> --}}
+                    </x-responsive-nav-link>
 
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">

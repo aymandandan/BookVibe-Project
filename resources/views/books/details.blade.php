@@ -41,6 +41,12 @@
                     {{ $book->price . __('$') }}
                 </p>
 
+                @if ($book->type == 'hard_book' && $book->stock_qty <= 0)
+                    <p class="font-serif font-bold text-lg text-red-500 border border-red-500 rounded-lg w-fit p-2">
+                        {{ __('Sorry, Out Of Stock!') }}
+                    </p>
+                @endif
+
                 {{-- Action Buttons --}}
                 <div class="flex flex-col sm:flex-row mt-4 justify-evenly w-full sm:w-3/4 gap-2 2xl:w-1/2">
                     <form action="{{ route('add.Cart', $book->id) }}" method="POST">
@@ -50,7 +56,9 @@
                             {{ __('Add to Cart') }}
                         </button>
                     </form>
-                    <form>
+                    <form action="{{ route('wishlist.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="book_id" value="{{ $book->id }}">
                         <button
                             class="font-bold text-base w-full sm:w-auto text-center uppercase py-1 sm:py-3 px-4 sm:px-8 bg-indigo-100 text-primary-500 border border-primary-500 hover:border-primary-400 hover:text-primary-400 transition duration-150 ease-in-out rounded-2xl">
                             {{ __('Add to Wishlist') }}
