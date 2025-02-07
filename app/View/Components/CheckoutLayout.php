@@ -7,7 +7,7 @@ use DB;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-class AppLayout extends Component
+class CheckoutLayout extends Component
 {
     /**
      * Get the view / contents that represents the component.
@@ -16,6 +16,6 @@ class AppLayout extends Component
     {
         $categories = DB::table('categories')->get();
         $cart_items_count = DB::table('carts')->where('user_id', '=', Auth::id())->sum('quantity');
-        return view('layouts.app', ['categories' => $categories, 'cart_count' => $cart_items_count]);
+        return view('layouts.checkout', ['categories' => $categories, 'cart_count' => $cart_items_count]);
     }
 }

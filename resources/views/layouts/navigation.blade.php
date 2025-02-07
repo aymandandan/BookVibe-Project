@@ -120,6 +120,10 @@
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-gray-300 hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-gray-300 transition duration-150 ease-in-out">
                         <x-shopping-cart-logo fill="#e5e7eb" />
                     </a>
+                    <div
+                        class="flex items-center justify-center rounded-full relative top-0 -translate-x-4 -translate-y-4 bg-primary-500 text-grey-100 px-1 text-sm">
+                        {{ $cart_count }}
+                    </div>
                 </div>
             </div>
 
@@ -150,7 +154,7 @@
 
                 <!-- Shopping Cart Icon -->
                 <div class="flex items-center ml-2">
-                    <a href="#"
+                    <a href="{{ route('cart.Page') }}"
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-gray-300 hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-gray-300 transition duration-150 ease-in-out">
                         <x-shopping-cart-logo fill="#e5e7eb" />
                     </a>

@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-4 px-3">
+<div class="flex flex-col gap-4 px-3 mb-8">
     @forelse ($wishlistitems as $item)
         <div id="wishlist-item-{{ $item->id }}"
             class="bg-white flex items-center justify-between gap-6 rounded-lg py-4 px-3 w-auto h-[150px] shadow-lg">
@@ -49,7 +49,7 @@
 
                 <!-- Image 2 Container -->
                 <div class="flex items-center justify-center">
-                    <form action="{{ route('wishlist.destroy', $item->id) }}" method="POST"
+                    <form action="{{ route('wishlist.destroy', $item->wish_id) }}" method="POST"
                         onsubmit="return confirm('Are you sure you want to remove this item from your wishlist?')">
                         @csrf
                         @method('DELETE')
