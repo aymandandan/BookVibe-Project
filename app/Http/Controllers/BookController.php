@@ -82,15 +82,24 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        $book = DB::table('books', 'b')
-            ->join('authors as a', 'b.author_id', '=', 'a.id')
-            ->join('categories as c', 'b.category_id', '=', 'c.id')
+        $book_details = DB::table('books', 'b')
             ->where('b.id', '=', $id)
             ->get()->first();
-        if ($book) {
-            return view('books.details', ['book' => $book]);
+        $author = DB::table('authors', 'a')
+            ->where('a.id', '=', $book_details->author_id)
+            ->get()->first();
+        $category = DB::table('categories', 'c')
+            ->where('c.id', '=', $book_details->category_id)
+            ->get()->first();
+
+        if ($book_details) {
+            return view('books.details', [
+                'book' => $book_details,
+                'author' => $author,
+                'category' => $category
+            ]);
         }
     }
 

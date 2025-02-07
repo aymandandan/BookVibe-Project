@@ -44,12 +44,12 @@
 
                 <div>
                     <x-input-label for="page_nb" :value="__('Page Numeber')" />
-                    <x-text-input id="page_nb" class="block mt-1 w-full" type="number" name="page_nb" />
+                    <x-text-input id="page_nb" class="block mt-1 w-full" type="number" min="0" name="page_nb" />
                     <x-input-error :messages="$errors->get('page_nb')" class="mt-2" />
                 </div>
                 <div>
                     <x-input-label for="price" :value="__('Price')" />
-                    <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" />
+                    <x-text-input id="price" class="block mt-1 w-full" type="text" min="0" name="price" />
                     <x-input-error :messages="$errors->get('price')" class="mt-2" />
                 </div>
 
@@ -106,7 +106,7 @@
 
                 <div :class="{ 'hidden': book_type != 'hard_book' }">
                     <x-input-label for="stock_qty" :value="__('Stock Quantity')" />
-                    <x-text-input id="stock_qty" class="block mt-1 w-full" type="number" name="stock_qty" autofocus />
+                    <x-text-input id="stock_qty" class="block mt-1 w-full" type="number" min="0" name="stock_qty" autofocus />
                     <x-input-error :messages="$errors->get('stock_qty')" class="mt-2" />
                 </div>
 
@@ -134,7 +134,8 @@
                     <a href="{{ url()->previous() }}" class="bg-indigo-200 rounded p-2 shadow hover:bg-indigo-300">
                         {{ __('Cancel') }}
                     </a>
-                    <button type="submit" class="bg-cyan-600 rounded p-2 shadow hover:bg-cyan-700 text-white">
+                    <button type="submit"
+                        class="bg-cyan-600 rounded p-2 shadow hover:bg-cyan-700 text-white transition duration-150 ease-in-out">
                         {{ __('Add Book') }}
                     </button>
                 </div>
