@@ -1,4 +1,10 @@
 <x-app-layout>
+  @if (session('error'))
+    <div id="error-message" class="error-block">
+      <p>{{ session('error') }}</p>
+      <button id="close-btn" class="close-btn">&times;</button>
+    </div>
+  @endif
   <div class="flexParentContainer">
       <div class="cartsContainer">
           <div class="centeredTitle">
@@ -94,7 +100,7 @@
         </div>
         <hr class="hrElement">
         <div style="margin-top: 30px" class="boldedHeaders checkoutLink whiteText">
-          <a href="">Go To Checkout</a>
+          <a href="{{route('checkoutPage',['totalCost'=>$totalCost,'nbOfItems'=>count($cartsBookRecords)])}}">Go To Checkout</a>
         </div>
       </div>
   </div>

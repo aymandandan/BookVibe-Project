@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded',function(){
     let stateRef = document.getElementById('state');
     let zipCodeRef = document.getElementById('zip_code');
     let paymentSec = document.getElementById('paymentSection');
+    let closeBtn = document.getElementById("close-btn");
+    if(closeBtn){
+      closeBtn.addEventListener("click",function(){
+        document.getElementById("error-message").remove();
+      });
+    }
 
     function validateFields(){
       if(nameRef.value.trim() != "" && emailRef.value.trim() != "" && phoneNbRef.value.trim() && 

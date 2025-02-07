@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use DB;
-use Illuminate\Http\Request; //mostly used with forms so hon Request $request($request acts as a $_POST so feene oul $request['quantity'] eza ken aande input aande name='quantity')
+use Illuminate\Http\Request;
+
+//mostly used with forms so hon Request $request($request acts as a $_POST so feene oul $request['quantity'] eza ken aande input aande name='quantity')
 
 class AuthorController extends Controller
 {

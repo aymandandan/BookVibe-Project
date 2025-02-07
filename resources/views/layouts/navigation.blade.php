@@ -220,7 +220,6 @@
 
     <!-- SideBar -->
     <div :class="{ 'hidden': !sidebar_open, 'flex': sidebar_open }" class="absolute w-full overflow-hidden">
-       <!-- @include('components.sidebar', $categories)-->
         <div class="absolute z-0 left-0 right-0 top-0 bottom-0" @click="sidebar_open = false"></div>
     </div>
 </nav>

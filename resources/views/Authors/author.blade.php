@@ -1,4 +1,14 @@
 <x-app-layout>
+  @if (session('sucess'))
+    <div class="sucessContainer">
+      {{session('sucess')}}
+    </div>
+  @endif
+  @if (session('error'))
+    <div class="failureContainer">
+      {{session('error')}}
+    </div>
+  @endif
   <div class="authorContainer">
     <header class="firstCon">
       <h1 class="authorName">{{$authName }}</h1>

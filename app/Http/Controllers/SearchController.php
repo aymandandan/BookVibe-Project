@@ -51,7 +51,6 @@ class SearchController extends Controller
             ->appends(['special_search_value' => $category]);
 
         return view('books.search-page', compact('books'));
-
     }
 
     public function searchType(Request $request)

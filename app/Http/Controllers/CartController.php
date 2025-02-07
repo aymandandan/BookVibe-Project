@@ -14,7 +14,17 @@ class CartController extends Controller
         $carts_BookRecords = DB::table('carts')->join('books','carts.book_id','=','books.id')
         //here we take only the books realted to the logged-in user
         ->where('carts.user_id','=',$userId)
-        ->select('carts.id as cartId','carts.book_id as book_id','carts.user_id as user_id','carts.quantity as quantity','books.title as book_title','books.description as description','books.type as type','books.price as priceBook','books.cover_img as coverImage','books.type as bookType')->get();
+        ->select('carts.id as cartId',
+                          'carts.book_id as book_id',
+                          'carts.user_id as user_id',
+                          'carts.quantity as quantity',
+                          'books.title as book_title',
+                          'books.description as description',
+                          'books.type as type',
+                          'books.price as priceBook',
+                          'books.cover_img as coverImage',
+                          'books.type as bookType')
+                          ->get();
         $totalPriceCart = 0;
         foreach($carts_BookRecords as $item){
             $item->totalPrice = $item->quantity*$item->priceBook;
@@ -45,8 +55,11 @@ class CartController extends Controller
                 'book_id' => $id,
                 'quantity'=>1
             ]);
+            return redirect()->back()->with('sucess','Item was added to your cart Successfully!');
         }
-        return redirect()->back();
+        else{
+            return redirect()->back()->with('error','Item is already in your cart!');
+        }
     }
 
     public function updateQuantity(Request $request,int $id){

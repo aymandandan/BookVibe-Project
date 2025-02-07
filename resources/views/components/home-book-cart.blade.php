@@ -8,9 +8,9 @@
     </a>
 
     <div class="text-sm">
-
+        <a href="{{route('authorPage',$book->authorId)}}">
             {{ $book->author_name }}
-
+        </a>
     </div>
 
     <div class="flex text-grey-500 text-sm">
