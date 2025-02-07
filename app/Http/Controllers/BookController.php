@@ -32,7 +32,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => ['required', 'string'],
+            'title' => ['required', 'string', 'unique:books,title'],
             'description' => ['required', 'string'],
             'cover_img' => ['nullable', 'file', 'image'],
             'page_nb' => ['nullable', 'numeric', 'gte:0'],

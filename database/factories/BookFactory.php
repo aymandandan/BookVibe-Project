@@ -20,7 +20,7 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->realTextBetween(16, 50),
+            'title' => fake()->unique()->realTextBetween(16, 50),
             'description' => fake()->realTextBetween(1600, 2000),
             'category_id' => fake()->randomElement(Category::pluck('id')->toArray()),
             'author_id' => fake()->randomElement(Author::pluck('id')->toArray()),
