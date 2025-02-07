@@ -30,7 +30,7 @@ class BookFactory extends Factory
             'publish_date' => fake()->date(),
             'publisher' => fake()->name(),
             'language' => 'English',
-            'cover_img' => 'storage/assets/pictures/BookCovers/Daily_Laws.jpeg',
+            'cover_img' => 'storage/assets/pictures/BookCovers/Default_Img_Cover.jpg',
         ];
     }
 }

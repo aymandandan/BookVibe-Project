@@ -66,6 +66,8 @@ class BookController extends Controller
             $img = $request->file('cover_img');
             $path = $img->store('assets/pictures/BookCovers', 'public'); // Store in storage/app/public
             $data['cover_img'] = 'storage/' . $path; // Path is relative to storage/app/public
+        } else {
+            $data['cover_img'] = 'storage/assets/pictures/BookCovers/Default_Img_Cover.jpg';
         }
 
         if ($request->hasFile('file_path')) {
@@ -74,9 +76,9 @@ class BookController extends Controller
             $data['file_path'] = 'storage/' . $path; // Path is relative to storage/app/public
         }
 
-        DB::table('books')->insert($data);
+        $book_id = DB::table('books')->insertGetId($data);
 
-        return redirect()->route('book.show', $data['id']);
+        return redirect()->route('book.show', $book_id);
     }
 
     /**
