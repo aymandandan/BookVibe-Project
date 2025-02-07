@@ -27,3 +27,4 @@ require __DIR__ . '/author.php';
 require __DIR__ . '/checkout.php';
 require __DIR__ . '/confirm.php';
 require __DIR__ . '/cart.php';
+
