@@ -12,10 +12,20 @@ class CartController extends Controller
         //here i want to get the id of the currently logged-in user
         $userId = auth()->id();
         //here we make the join operation between carts and books to get all the information related for the books
-        $carts_BookRecords = DB::table('carts')->join('books', 'carts.book_id', '=', 'books.id')
-            //here we take only the books realted to the logged-in user
-            ->where('carts.user_id', '=', $userId)
-            ->select('carts.id as cartId', 'carts.book_id as book_id', 'carts.user_id as user_id', 'carts.quantity as quantity', 'books.title as book_title', 'books.description as description', 'books.type as type', 'books.price as priceBook', 'books.cover_img as coverImage', 'books.type as bookType')->get();
+        $carts_BookRecords = DB::table('carts')->join('books','carts.book_id','=','books.id')
+        //here we take only the books realted to the logged-in user
+        ->where('carts.user_id','=',$userId)
+        ->select('carts.id as cartId',
+                          'carts.book_id as book_id',
+                          'carts.user_id as user_id',
+                          'carts.quantity as quantity',
+                          'books.title as book_title',
+                          'books.description as description',
+                          'books.type as type',
+                          'books.price as priceBook',
+                          'books.cover_img as coverImage',
+                          'books.type as bookType')
+                          ->get();
         $totalPriceCart = 0;
         foreach ($carts_BookRecords as $item) {
             $item->totalPrice = $item->quantity * $item->priceBook;
@@ -48,13 +58,13 @@ class CartController extends Controller
                 'book_id' => $id,
                 'quantity' => 1
             ]);
-        } else {
+        }
+        else {
             DB::table('carts')
                 ->where('book_id', '=', $id)
                 ->where('user_id', '=', $userId)
                 ->increment('quantity');
         }
-        return redirect()->back();
     }
 
     public function updateQuantity(Request $request, int $id)

@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+main{
+  margin-top: 30px;
+  height: 100%;
+}
+
+.content_flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding-inline: 30px;
+}
+
+.firstDiv,.secondDiv{
+  background-color: #fff;
+  padding-inline: 30px;
+  margin-inline: 30px;
+  box-shadow: -5px 5px 10px black;
+}
+
+.name_flex,.payment_flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.corners{
+  border-radius: 5px;
+  background-color: #D9D9D9;
+  width: 100%;
+}
+
+.btn_Pay{
+  border: 5px #303649 solid;
+  float: right;
+  background-color: #303649;
+  color: #fff;
+  padding-inline: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 100px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.firstDiv{
+  background-image: linear-gradient(white,rgb(96, 96, 96));
+  width: 50%;
+  height: 100%;
+}
+
+.secondDiv{
+  background-image: linear-gradient(white,rgb(96, 96, 96));
+  width: 25%;
+}
+
+.title{
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.flex_Cart{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.topBottomSpace{
+  margin: 30px 0px;
+}
+
+#paymentSection{
+  margin-top: 60px;
+}
+
+.detailsLink{
+  text-decoration: underline;
+  text-decoration-color: black;
+  text-decoration-thickness: 2px;
+}

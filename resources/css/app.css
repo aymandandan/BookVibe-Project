@@ -5,10 +5,10 @@
 .trendbook{
     text-align: center;
     box-shadow: 3px 3px 6px rgba(0, 0, 0,0.4);
-   color: rgb(245, 239, 239);
-  letter-spacing: 5px;
-  font-size: 30px;
- font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(245, 239, 239);
+    letter-spacing: 5px;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .font_trend_book{
     color: rgb(161, 161, 29);
@@ -147,6 +147,28 @@ body{
   border-radius: 10px;
 }
 
+.error-block{
+  background-color: #f8d7da;
+  columns: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.close-btn{
+  background: none;
+  border: none;
+  color: #721c24;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 /* --Author's Page-- */
 .authorContainer{
   display: flex;
@@ -193,4 +215,62 @@ body{
   height: 2px;
   background-color: black;
   margin: 0 15px;
+}
+
+/* styling for failure and sucess div */
+.sucessContainer,.failureContainer{
+  height: 40px;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  box-shadow: 0 0 10px black;
+}
+
+.sucessContainer{
+  color: #4CAF50;
+  background-color: #ddffdd;
+}
+
+.failureContainer{
+  color: #ffdddd;
+  background-color: #ee3c5f;
+}
+
+/* Confirmation Page */
+.confirmFlexCon{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.thankingCon{
+  font-weight: bold;
+  font-size: 2.5em;
+}
+
+.backHomeAndDown{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 100px;
+  font-weight: bold;
+}
+
+.homeCon{
+  height: 200px;
+  width: 200px;
+  background-image: linear-gradient(white,grey);
+  box-shadow: -5px 5px 5px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-inline: 50px;
+  padding-inline: 20px;
+}
+
+.homelink{
+  color: black;
+  size: 1em;
 }

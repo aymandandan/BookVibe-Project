@@ -12,6 +12,16 @@
             </h2>
         </x-slot>
     @endif
+    @if (session('sucess'))
+        <div class="sucessContainer">
+        {{session('sucess')}}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="failureContainer">
+        {{session('error')}}
+        </div>
+    @endif
     <div class="w-full flex justify-center">
         <div class="max-w-7xl">
             <div class="mx-8 my-6 text-2xl text-grey-900">
@@ -22,7 +32,6 @@
                     @foreach ($books as $book)
                         @include('components.book-card', ['book' => $book])
                     @endforeach
-
                 </div>
                 <div class="p-4">
                     {{ $books->links() }}
