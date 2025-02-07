@@ -94,11 +94,21 @@ class BookController extends Controller
             ->where('c.id', '=', $book_details->category_id)
             ->get()->first();
 
+        // For recommended similar books (same author or category) only get 10
+        $other_books = DB::table('books', 'b')
+            ->join('authors as a', 'b.author_id', '=', 'a.id')
+            ->join('categories as c', 'b.category_id', '=', 'c.id')
+            ->where('c.id', '=', $book_details->category_id)
+            ->orWhere('a.id', '=', $book_details->author_id)
+            ->select('b.id', 'b.title', 'b.cover_img')
+            ->paginate(10);
+
         if ($book_details) {
             return view('books.details', [
                 'book' => $book_details,
                 'author' => $author,
-                'category' => $category
+                'category' => $category,
+                'other_books' => $other_books
             ]);
         }
     }
