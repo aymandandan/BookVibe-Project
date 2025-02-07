@@ -1,2 +1,6 @@
 *
 !.gitignore
+!assets/
+!assets/pictures
+!assets/pictures/BookCovers
+!assets/pictures/BookCovers/Default_Img_Cover.jpg
