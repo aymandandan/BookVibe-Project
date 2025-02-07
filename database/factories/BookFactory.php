@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class BookFactory extends Factory
 {
-    
+
     /**
      * Define the model's default state.
      *
@@ -20,8 +20,8 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->realTextBetween(16, 50),
-            'description' => fake()->realTextBetween(16000, 20000),
+            'title' => fake()->unique()->realTextBetween(16, 50),
+            'description' => fake()->realTextBetween(1600, 2000),
             'category_id' => fake()->randomElement(Category::pluck('id')->toArray()),
             'author_id' => fake()->randomElement(Author::pluck('id')->toArray()),
             'type' => fake()->randomElement(['hard_book', 'e_book']),
@@ -30,7 +30,7 @@ class BookFactory extends Factory
             'publish_date' => fake()->date(),
             'publisher' => fake()->name(),
             'language' => 'English',
-            'cover_img' => 'storage/assets/pictures/BookCovers/Daily_Laws.jpeg',
+            'cover_img' => 'storage/assets/pictures/BookCovers/Default_Img_Cover.jpg',
         ];
     }
 }

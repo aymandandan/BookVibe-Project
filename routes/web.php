@@ -19,3 +19,4 @@ require __DIR__ . '/home.php';
 require __DIR__ . '/cart.php';
 require __DIR__ . '/author.php';
 require __DIR__ . '/wishlist.php';
+require __DIR__ . '/book.php';

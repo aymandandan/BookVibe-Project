@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wishlist;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,8 +11,11 @@ class WishlistController extends Controller
 {
     public function index()
     {
-        $wishlistitems = Wishlist::where('user_id', Auth::id())
-            ->with('book')
+        $wishlistitems = DB::table('wishlists', 'w')
+            ->where('w.user_id', '=', Auth::id())
+            ->join('books as b', 'b.id', '=', 'w.book_id')
+            ->join('authors as a', 'b.author_id', '=', 'a.id')
+            ->select('b.*', 'a.name as author_name', 'w.*')
             ->get();
 
         return view("wishlist.index", compact('wishlistitems'));
@@ -26,10 +30,12 @@ class WishlistController extends Controller
         $userId = Auth::id();
 
         // Check for existing entry
-        if (Wishlist::where('user_id', $userId)
-            ->where('book_id', $request->book_id)
-            ->exists()) {
-                return redirect()->back()
+        if (
+            Wishlist::where('user_id', $userId)
+                ->where('book_id', $request->book_id)
+                ->exists()
+        ) {
+            return redirect()->back()
                 ->withInput() // Preserves search filters
                 ->with('wishlist_success', 'Book is already  added!');
         }
@@ -41,8 +47,8 @@ class WishlistController extends Controller
         ]);
 
         return redirect()->back()
-                ->withInput() // Preserves search filters
-                ->with('wishlist_success', 'Book added!');
+            ->withInput() // Preserves search filters
+            ->with('wishlist_success', 'Book added!');
     }
 
     public function destroy($id)
