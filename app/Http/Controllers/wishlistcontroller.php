@@ -15,7 +15,7 @@ class WishlistController extends Controller
             ->where('w.user_id', '=', Auth::id())
             ->join('books as b', 'b.id', '=', 'w.book_id')
             ->join('authors as a', 'b.author_id', '=', 'a.id')
-            ->select('b.*', 'a.name as author_name', 'w.*')
+            ->select('b.*', 'a.name as author_name', 'w.id as wish_id')
             ->get();
 
         return view("wishlist.index", compact('wishlistitems'));

@@ -16,7 +16,7 @@
 }
 .container{
     display: flex;
-    
+
     position: relative;
 }
 
@@ -71,7 +71,6 @@ body{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 37%;
   gap: 20px;
 }
 
