@@ -44,7 +44,7 @@
                 {{-- Action Buttons --}}
                 <div class="flex flex-col sm:flex-row mt-4 justify-evenly w-full sm:w-3/4 gap-2 2xl:w-1/2">
                     <form>
-                        <button @disabled($book->stock_qty <= 0)
+                        <button @disabled($book->type == 'hard_book' && $book->stock_qty <= 0)
                             class="text-base w-full sm:w-auto text-center uppercase py-1 sm:py-3 px-4 sm:px-8 bg-primary-500 text-grey-100 hover:bg-primary-400 transition duration-150 ease-in-out rounded-2xl">
                             {{ __('Add to Cart') }}
                         </button>

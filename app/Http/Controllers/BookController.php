@@ -76,7 +76,7 @@ class BookController extends Controller
 
         DB::table('books')->insert($data);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('book.show', $data['id']);
     }
 
     /**
