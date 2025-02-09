@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id()->primary()->autoIncrement();
-            $table->foreignId('book_id')->constrained('books');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('book_id')->constrained('books')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('quantity');
             $table->timestamps();
         });

@@ -17,7 +17,7 @@
     </head>
 
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-indigo-100">
+        <div class="min-h-screen bg-indigo-100 flex flex-col">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -34,7 +34,9 @@
                 {{ $slot }}
             </main>
 
-            <x-footer />
+            <div class="mt-auto">
+                <x-footer />
+            </div>
         </div>
     </body>
 
