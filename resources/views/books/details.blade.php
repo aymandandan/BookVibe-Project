@@ -1,49 +1,61 @@
 <x-app-layout>
     <div class="flex flex-col w-full items-center justify-center">
         <div class="w-full flex flex-col sm:flex-row sm:items-start items-center">
-            {{-- Image Div --}}
+            {{-- Image Section --}}
             <div class="sm:w-4/12 w-full flex flex-col items-center px-4 py-2 mt-8 sm:sticky sm:top-16">
                 <div class="w-full flex justify-center items-center relative max-w-64 rounded-md">
-                    <img src="{{ asset($book->cover_img) }}" alt="{{ $book->title }}" />
+                    <img src="{{ asset($book->cover_img) }}" alt="{{ __('Cover image of ') . $book->title }}"
+                        class="rounded-md w-full h-auto">
                 </div>
-                {{-- Admin Buttons --}}
-                @if (Auth::user()->type == 'admin')
-                    <div class="flex justify-evenly px-4 py-2 w-full">
-                        <form>
-                            <button
-                                class="bg-cyan-600 text-grey-100 p-2 hover:bg-cyan-500 rounded shadow transition duration-150 ease-in-out">
-                                {{ __('Edit') }}
-                            </button>
-                        </form>
-                        <form>
-                            <button
-                                class="bg-red-600 text-grey-100 p-2 hover:bg-red-500 rounded shadow transition duration-150 ease-in-out">
-                                {{ __('Delete') }}
-                            </button>
-                        </form>
-                    </div>
-                @endif
-            </div>
-            {{-- Other Info Div --}}
-            <div class="sm:mt-10 mt-6 flex flex-col gap-4 px-6 sm:w-8/12">
 
+                {{-- Admin Controls --}}
+                @auth
+                    @if (Auth::user()->isAdmin())
+                        <div class="flex justify-evenly px-4 py-2 w-full gap-2">
+                            <a href="{{ route('book.edit', $book->id) }}"
+                                class="bg-cyan-600 text-white p-2 hover:bg-cyan-500 rounded shadow transition duration-150 ease-in-out text-center flex-1">
+                                {{ __('Edit') }}
+                            </a>
+                            <form action="{{ route('book.destroy', $book->id) }}" method="POST" class="flex-1">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="bg-red-600 text-white p-2 hover:bg-red-500 rounded shadow transition duration-150 ease-in-out w-full">
+                                    {{ __('Delete') }}
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                @endauth
+            </div>
+
+            {{-- Main Content Section --}}
+            <div class="sm:mt-10 mt-6 flex flex-col gap-4 px-6 sm:w-8/12">
                 {{-- Title --}}
-                <p class="text-3xl font-serif text-indigo-800">
+                <h1 class="text-3xl font-serif text-indigo-800">
                     {{ $book->title }}
-                </p>
-                {{-- Author Name --}}
-                <p class="text-lg font-serif text-indigo-500">
-                    {{ $author->name . __(' (Author)') }}
-                </p>
+                </h1>
+
+                {{-- Author --}}
+                @if ($author)
+                    <p class="text-lg font-serif text-indigo-500">
+                        {{ $author->name . __(' (Author)') }}
+                    </p>
+                @endif
 
                 {{-- Price --}}
                 <p class="text-xl font-serif text-primary-500 py-2">
-                    {{ $book->price . __('$') }}
+                    {{ $book->price . '$' }}
                 </p>
 
-                @if ($book->type == 'hard_book' && $book->stock_qty <= 0)
-                    <p class="font-serif font-bold text-lg text-red-500 border border-red-500 rounded-lg w-fit p-2">
-                        {{ __('Sorry, Out Of Stock!') }}
+                {{-- Stock Status --}}
+                @if ($book->type == 'hard_book')
+                    <p @class([
+                        'font-serif font-bold text-lg rounded-lg w-fit p-2',
+                        'text-red-500 border border-red-500' => $book->stock_qty <= 0,
+                        'text-green-500 border border-green-500' => $book->stock_qty > 0,
+                    ])>
+                        {{ $book->stock_qty <= 0 ? __('Out Of Stock') : __('In Stock') }}
                     </p>
                 @endif
 
@@ -52,7 +64,7 @@
                     <form action="{{ route('add.Cart', $book->id) }}" method="POST">
                         @csrf
                         <button @disabled($book->type == 'hard_book' && $book->stock_qty <= 0)
-                            class="text-base w-full sm:w-auto text-center uppercase py-1 sm:py-3 px-4 sm:px-8 bg-primary-500 text-grey-100 hover:bg-primary-400 transition duration-150 ease-in-out rounded-2xl">
+                            class="text-base w-full sm:w-auto text-center uppercase py-1 sm:py-3 px-4 sm:px-8 bg-primary-500 text-white hover:bg-primary-400 transition duration-150 ease-in-out rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed">
                             {{ __('Add to Cart') }}
                         </button>
                     </form>
@@ -67,16 +79,16 @@
                 </div>
 
                 {{-- Category --}}
-                <p class="text-lg font-serif text-indigo-500 mt-2">
-                    {{ __('Category: ') . $category->name }}
-                </p>
+                @if ($category)
+                    <p class="text-lg font-serif text-indigo-500 mt-2">
+                        {{ __('Category: ') . $category->name }}
+                    </p>
+                @endif
 
-                {{-- Description --}}
-                <x-details-drawer title="{{ __('Description') }}">
+                {{-- Content Sections --}}
+                <x-details-drawer :title="__('Description')">
                     <div class="w-11/12 py-2">
-                        <p class="text-base">
-                            {{ $book->description }}
-                        </p>
+                        <p class="text-base whitespace-pre-wrap">{{ $book->description }}</p>
                     </div>
                 </x-details-drawer>
 
@@ -166,34 +178,30 @@
                     </div>
                 </x-details-drawer>
 
-                {{-- About Author --}}
-                <x-details-drawer title="{{ __('About Author') }}">
-                    <div class="w-11/12 py-2">
-                        <p class="text-base">
-                            {{ $author->about }}
-                        </p>
-                    </div>
-                </x-details-drawer>
-
-                {{-- Reviews TODO --}}
-
-
+                @if ($author?->about)
+                    <x-details-drawer :title="__('About Author')">
+                        <div class="w-11/12 py-2">
+                            <p class="text-base whitespace-pre-wrap">{{ $author->about }}</p>
+                        </div>
+                    </x-details-drawer>
+                @endif
             </div>
-
         </div>
-        <div class="w-full p-8">
-            <p class="w-full text-2xl text-grey-900 font-serif">
-                {{ __('Other Similar Books') }}
-            </p>
-            <div class="flex w-full relative items-center">
-                <div class="flex w-full items-center gap-x-2 overflow-x-scroll whitespace-nowrap px-4 py-3 sm:px-0">
-                    @foreach ($other_books as $other)
-                        {{-- <div class="flex h-44 rounded w-auto flex-shrink-0 sm:h-72"> --}}
-                        @include('components.recommended-book-card', ['book' => $other])
-                        {{-- </div> --}}
-                    @endforeach
+
+        {{-- Similar Books Section --}}
+        @if ($similarBooks->isNotEmpty())
+            <div class="w-full p-8">
+                <h2 class="w-full text-2xl text-gray-900 font-serif mb-4">
+                    {{ __('You Might Also Like') }}
+                </h2>
+                <div class="flex w-full relative items-center">
+                    <div class="flex w-full items-center gap-4 overflow-x-auto px-4 py-3 sm:px-0">
+                        @foreach ($similarBooks as $similar)
+                            @include('components.recommended-book-card', ['book' => $similar])
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 </x-app-layout>

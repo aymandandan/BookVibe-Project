@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id()->primary()->autoIncrement();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('book_id')->constrained('books');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('book_id')->constrained('books')->onDelete('cascade');
             $table->date('review_date');
             $table->longText('content');
             $table->timestamps();

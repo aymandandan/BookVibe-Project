@@ -44,11 +44,12 @@
                 @foreach ($cartsBookRecords as $cartBookRecord)
                     <div class="contentFlex" style="margin-top: 20px;margin-bottom:20px">
                         <div class="imgAndDesc w-1/2">
-                            <div class="imgContainer">
+                            <a href="{{ route('book.show', $cartBookRecord->cartId) }}" class="imgContainer">
                                 <img src="{{ asset($cartBookRecord->coverImage) }}" width="125" height="200">
-                            </div>
+                            </a>
                             <div class="descContainer">
-                                <h1 class="boldedHeaders">{{ $cartBookRecord->book_title }}</h1>
+                                <a href="{{ route('book.show', $cartBookRecord->cartId) }}"
+                                    class="boldedHeaders">{{ $cartBookRecord->book_title }}</a>
                                 <h3>Type: {{ $cartBookRecord->type == 'hard_book' ? 'Hard Copy' : 'eBook' }}</h3>
                                 <div class="deleteBlock">
                                     <form action="{{ route('cart.destroy', $cartBookRecord->cartId) }}" method="POST">

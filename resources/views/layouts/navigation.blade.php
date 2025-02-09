@@ -71,7 +71,7 @@
                                 {{ __('Wishlist') }}
                             </x-dropdown-link>
 
-                            @if (Auth::user()->type == 'admin')
+                            @if (Auth::user()->isAdmin())
                                 <x-dropdown-link :href="route('dashboard')">
                                     {{ __('Dashboard') }}
                                 </x-dropdown-link>
@@ -158,6 +158,10 @@
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-gray-300 hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-gray-300 transition duration-150 ease-in-out">
                         <x-shopping-cart-logo fill="#e5e7eb" />
                     </a>
+                    <div
+                        class="flex items-center justify-center rounded-full relative top-0 -translate-x-4 -translate-y-4 bg-primary-500 text-grey-100 px-1 text-sm">
+                        {{ $cart_count }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -208,7 +212,7 @@
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
 
-                    @if (Auth::user()->type)
+                    @if (Auth::user()->isAdmin())
                         <x-responsive-nav-link :href="route('dashboard')">
                             {{ __('Dashboard') }}
                         </x-responsive-nav-link>
