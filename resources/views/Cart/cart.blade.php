@@ -6,7 +6,7 @@
         </div>
     @endif
 
-    <div class="flex flex-row justify-around w-full">
+    <div class="flex flex-col justify-around w-full sm:flex-row">
         <div class="flex flex-col m-12 w-full">
 
             <div class="centeredTitle">
@@ -21,11 +21,11 @@
 
             <hr class="hrElement">
 
-            <div class="titlesContainer" style="margin-top: 10px;margin-bottom: 10px">
-                <h3 class="boldedHeaders w-1/2">
+            <div class="flex w-full justify-between" style="margin-top: 10px;margin-bottom: 10px">
+                <h3 class="boldedHeaders w-2/3">
                     Product Details
                 </h3>
-                <div class="inlineClassContainer">
+                <div class="flex justify-between w-1/3">
                     <h3 class="boldedHeaders">
                         Quantity
                     </h3>
@@ -43,7 +43,7 @@
             @if (!empty($cartsBookRecords))
                 @foreach ($cartsBookRecords as $cartBookRecord)
                     <div class="contentFlex" style="margin-top: 20px;margin-bottom:20px">
-                        <div class="imgAndDesc w-1/2">
+                        <div class="imgAndDesc w-2/3">
                             <a href="{{ route('book.show', $cartBookRecord->cartId) }}" class="imgContainer">
                                 <img src="{{ asset($cartBookRecord->coverImage) }}" width="125" height="200">
                             </a>
@@ -61,20 +61,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="quantityContainer">
-                            <form action="{{ route('update.Cart', $cartBookRecord->book_id) }}" method="POST">
-                                @csrf
-                                <input type="number" name="quantity" value="{{ $cartBookRecord->quantity }}"
-                                    min="1" class="quantityInput"><br>
-                                <input type="submit" name="updateQnty" value="update"
-                                    class="updateButton bg-indigo-600">
-                            </form>
-                        </div>
-                        <div class="pricePerItem">
-                            ${{ $cartBookRecord->priceBook }}
-                        </div>
-                        <div class="SubtotalPrice">
-                            ${{ $cartBookRecord->totalPrice }}
+                        <div class="flex w-1/3 justify-between">
+                            <div class="quantityContainer">
+                                <form action="{{ route('update.Cart', $cartBookRecord->book_id) }}" method="POST">
+                                    @csrf
+                                    <input type="number" name="quantity" value="{{ $cartBookRecord->quantity }}"
+                                        min="1" class="quantityInput"><br>
+                                    <input type="submit" name="updateQnty" value="update"
+                                        class="updateButton bg-indigo-600">
+                                </form>
+                            </div>
+                            <div class="pricePerItem">
+                                ${{ $cartBookRecord->priceBook }}
+                            </div>
+                            <div class="SubtotalPrice">
+                                ${{ $cartBookRecord->totalPrice }}
+                            </div>
                         </div>
                     </div>
                     <hr>
