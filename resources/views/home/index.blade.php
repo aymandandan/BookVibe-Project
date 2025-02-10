@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="home">
-        <div class="relative w-full h-[450px] bg-center bg-cover" style="background-image: url('/assets/main.jpeg');">
+        <div class="relative w-full h-[450px] bg-center bg-cover"
+            style="background-image: url('/assets/util_images/main.jpg');">
             <!-- Transparent Overlay -->
             <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
@@ -48,6 +49,6 @@
             </div>
         </div>
     </div>
-    
+
 
 </x-app-layout>
