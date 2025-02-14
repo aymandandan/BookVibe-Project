@@ -9,7 +9,7 @@
                 </div>
 
                 {{-- Admin Controls --}}
-                @auth
+                {{-- @auth
                     @if (Auth::user()->isAdmin())
                         <div class="flex justify-evenly px-4 py-2 w-full gap-2">
                             <a href="{{ route('book.edit', $book->id) }}"
@@ -26,7 +26,7 @@
                             </form>
                         </div>
                     @endif
-                @endauth
+                @endauth --}}
             </div>
 
             {{-- Main Content Section --}}
