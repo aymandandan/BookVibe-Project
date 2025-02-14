@@ -26,7 +26,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.create', [
+        return view('books.add', [
             'categories' => Category::all(),
             'authors' => Author::all()
         ]);
@@ -177,9 +177,9 @@ class BookController extends Controller
             $validated['stock_qty'] = null;
 
             // Maintain existing file if not updating
-            // if (!isset($validated['file_path'])) {
-            //     $validated['file_path'] = $book->file_path ?? null;
-            // }
+            if (!isset($validated['file_path'])) {
+                $validated['file_path'] = $book->file_path ?? null;
+            }
         }
     }
 
