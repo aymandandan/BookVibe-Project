@@ -209,8 +209,11 @@
             </div>
 
             <div class="flex justify-end gap-4">
-                <a href="{{ route('admin.books.index') }}" class="btn-gray">Cancel</a>
-                <button type="submit" class="btn-primary">Save Book</button>
+                <a href="{{ route('admin.books.index') }}"
+                    class="w-auto px-4 py-2 bg-grey-500 text-white rounded-lg hover:bg-grey-600 transition-colors flex items-center justify-center gap-2">Cancel</a>
+                <button type="submit"
+                    class="w-auto px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors flex items-center justify-center gap-2">Save
+                    Book</button>
             </div>
         </form>
     </div>
