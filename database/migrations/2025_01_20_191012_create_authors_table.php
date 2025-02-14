@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id()->primary()->autoIncrement();
-            $table->string('name');
-            $table->longText('about');
+            $table->string('name')->unique();
+            $table->longText('about')->nullable();
             $table->timestamps();
         });
     }
