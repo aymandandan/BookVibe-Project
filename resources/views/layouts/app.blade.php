@@ -37,6 +37,8 @@
             <div class="mt-auto">
                 <x-footer />
             </div>
+
+            <x-messages />
         </div>
     </body>
 

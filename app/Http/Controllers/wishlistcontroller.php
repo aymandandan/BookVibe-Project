@@ -37,7 +37,7 @@ class WishlistController extends Controller
         ) {
             return redirect()->back()
                 ->withInput() // Preserves search filters
-                ->with('wishlist_success', 'Book is already  added!');
+                ->with('success', 'Book is already  added!');
         }
 
         // Create new wishlist item
@@ -48,7 +48,7 @@ class WishlistController extends Controller
 
         return redirect()->back()
             ->withInput() // Preserves search filters
-            ->with('wishlist_success', 'Book added!');
+            ->with('success', 'Book added to wishlist!');
     }
 
     public function destroy($id)
