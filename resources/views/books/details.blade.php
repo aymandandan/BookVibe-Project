@@ -8,25 +8,6 @@
                         class="rounded-md w-full h-auto">
                 </div>
 
-                {{-- Admin Controls --}}
-                @auth
-                    @if (Auth::user()->isAdmin())
-                        <div class="flex justify-evenly px-4 py-2 w-full gap-2">
-                            <a href="{{ route('book.edit', $book->id) }}"
-                                class="bg-cyan-600 text-white p-2 hover:bg-cyan-500 rounded shadow transition duration-150 ease-in-out text-center flex-1">
-                                {{ __('Edit') }}
-                            </a>
-                            <form action="{{ route('book.destroy', $book->id) }}" method="POST" class="flex-1">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    class="bg-red-600 text-white p-2 hover:bg-red-500 rounded shadow transition duration-150 ease-in-out w-full">
-                                    {{ __('Delete') }}
-                                </button>
-                            </form>
-                        </div>
-                    @endif
-                @endauth
             </div>
 
             {{-- Main Content Section --}}

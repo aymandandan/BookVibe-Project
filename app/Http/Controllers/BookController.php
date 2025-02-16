@@ -16,9 +16,17 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return redirect()->route('books.search');
+        $search = $request->input('search');
+
+        $books = Book::with('author')
+            ->when($search, function ($query) use ($search) {
+                return $query->where('title', 'like', "%$search%");
+            })
+            ->paginate(10);
+
+        return view('admin.books.index', compact('books', 'search'));
     }
 
     /**
@@ -26,10 +34,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.create', [
-            'categories' => Category::all(),
-            'authors' => Author::all()
-        ]);
+        $categories = DB::table('categories')->get();
+        $authors = DB::table('authors')->get();
+        return view('admin.books.create', compact('categories', 'authors'));
     }
 
     /**
@@ -43,12 +50,13 @@ class BookController extends Controller
         $validated['cover_img'] = $this->handleCoverImage($request);
         $validated['file_path'] = $this->handleEbookFile($request, $validated['type']);
 
-        // Handle type-specific fields
+        // Handle type-specific field cleanup
         $this->handleTypeSpecificFields($validated);
 
-        Book::create($validated);
+        // Create the book
+        $book = Book::create($validated);
 
-        return redirect()->route('book.show', Book::latest()->first())
+        return redirect()->route('admin.books.index')
             ->with('success', 'Book created successfully');
     }
 
@@ -92,13 +100,17 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book)
+    public function edit($id)
     {
-        return view('books.edit', [
-            'book' => $book,
-            'categories' => Category::all(),
-            'authors' => Author::all()
-        ]);
+        $book = DB::table('books')->find($id);
+        if (!$book) {
+            abort(404);
+        }
+
+        $categories = DB::table('categories')->get();
+        $authors = DB::table('authors')->get();
+
+        return view('admin.books.create', compact('book', 'categories', 'authors'));
     }
 
     /**
@@ -108,21 +120,24 @@ class BookController extends Controller
     {
         $validated = $request->validate($this->getValidationRules());
 
-        // Handle file uploads
+        // Handle file uploads/deletions
         $validated['cover_img'] = $this->handleCoverImage($request, $book);
         $validated['file_path'] = $this->handleEbookFile($request, $validated['type'], $book);
 
-        // Handle type-specific fields
-        $this->handleTypeSpecificFields($validated);
+        // Handle checkbox for file removal
+        if ($request->has('remove_file')) {
+            $this->deleteFileIfExists($book->file_path);
+            $validated['file_path'] = null;
+        }
 
-        // Merge existing fields that might be excluded
-        $validated = array_merge($book->toArray(), $validated);
+        // Handle type-specific field cleanup
+        $this->handleTypeSpecificFields($validated, $book);
 
+        // Update the book
         $book->update($validated);
 
-        return redirect()->route('book.show', $book)
+        return redirect()->route('admin.books.index')
             ->with('success', 'Book updated successfully');
-
     }
 
     /**
@@ -136,7 +151,7 @@ class BookController extends Controller
 
         $book->delete();
 
-        return redirect()->route('/')
+        return redirect()->route('admin.books.index')
             ->with('success', 'Book deleted successfully');
     }
 
@@ -164,34 +179,37 @@ class BookController extends Controller
         return $rules;
     }
 
-    private function handleTypeSpecificFields(array &$validated): void
+    private function handleTypeSpecificFields(array &$validated, ?Book $book = null): void
     {
         if ($validated['type'] === 'hard_book') {
-            // Clear eBook-specific fields
             $validated['size'] = null;
             $validated['format'] = null;
-            $validated['file_path'] = null;
+            // Remove eBook file if changing from eBook to hardcover
+            if ($book && $book->type === 'e_book') {
+                $this->deleteFileIfExists($book->file_path);
+                $validated['file_path'] = null;
+            }
         } else {
-            // Clear hard book-specific fields
             $validated['dimensions'] = null;
             $validated['stock_qty'] = null;
-
-            // Maintain existing file if not updating
-            // if (!isset($validated['file_path'])) {
-            //     $validated['file_path'] = $book->file_path ?? null;
-            // }
         }
     }
 
     private function handleCoverImage(Request $request, ?Book $book = null): string
     {
+        // Handle cover image removal
+        if ($request->has('remove_cover')) {
+            $this->deleteFileIfExists($book?->cover_img);
+            return $this->defaultCover;
+        }
+
         if ($request->hasFile('cover_img')) {
             $path = $request->file('cover_img')->store(
                 'assets/pictures/BookCovers',
                 'public'
             );
 
-            // Delete old cover if it exists and isn't default
+            // Delete old cover if exists
             if ($book && $book->cover_img !== $this->defaultCover) {
                 $this->deleteFileIfExists($book->cover_img);
             }
@@ -204,8 +222,13 @@ class BookController extends Controller
 
     private function handleEbookFile(Request $request, string $type, ?Book $book = null): ?string
     {
-        if ($type !== 'e_book')
+        // Only handle files for eBooks
+        if ($type !== 'e_book') {
+            if ($book?->file_path) {
+                $this->deleteFileIfExists($book->file_path);
+            }
             return null;
+        }
 
         if ($request->hasFile('file_path')) {
             $path = $request->file('file_path')->store(

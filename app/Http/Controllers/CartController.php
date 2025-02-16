@@ -39,45 +39,92 @@ class CartController extends Controller
 
     public function destroy(int $id)
     {
-        //hon b alb l $deleted bynhat number of affected rows yle heyye 1
-        $deleted = DB::table('carts')
-            ->where('id', '=', $id)
-            ->delete();
-        return redirect()->route('cart.Page');
+        try {
+            //hon b alb l $deleted bynhat number of affected rows yle heyye 1
+            $deleted = DB::table('carts')
+                ->where('id', $id)
+                ->delete();
+
+            if ($deleted) {
+                return redirect()->route('cart.Page')
+                    ->with('success', 'Item removed from cart successfully');
+            }
+
+            return redirect()->route('cart.Page')
+                ->with('error', 'Item not found in cart');
+
+        } catch (\Exception $e) {
+            return redirect()->route('cart.Page')
+                ->with('error', 'Failed to remove item: ' . $e->getMessage());
+        }
     }
 
     //here when we click on the add To cart button from description page or home page rah nkun nehna already be3teen kl l books yle b alb l book table eza aal home page aw b alb l description page mnkun be3teen l id lal book yle bdna naamellu browse la details yle elu so bkun be3te bl anchor tag l id lal book w same b alb lhome page kl card aam tmru2 b alb l foreach aam ykun fe b alba l id lal book
     public function insert(int $id)
     {
-        $userId = auth()->id();
-        $cartRecord = DB::table('carts')
-            ->where('book_id', '=', $id)
-            ->where('user_id', '=', $userId)
-            ->get();
-        if ($cartRecord->isEmpty()) {
-            DB::table('carts')->insert([
-                'user_id' => $userId,
-                'book_id' => $id,
-                'quantity' => 1
-            ]);
-        } else {
-            DB::table('carts')
-                ->where('book_id', '=', $id)
-                ->where('user_id', '=', $userId)
-                ->increment('quantity');
-        }
+        try {
+            $userId = auth()->id();
 
-        return redirect()->back();
+            if (!$userId) {
+                return redirect()->route('login')
+                    ->with('error', 'Please login to add items to cart');
+            }
+
+            $cartRecord = DB::table('carts')
+                ->where('book_id', $id)
+                ->where('user_id', $userId)
+                ->first();
+
+            if (!$cartRecord) {
+                DB::table('carts')->insert([
+                    'user_id' => $userId,
+                    'book_id' => $id,
+                    'quantity' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+
+                return redirect()->back()
+                    ->with('success', 'Item added to cart successfully');
+            }
+
+            DB::table('carts')
+                ->where('book_id', $id)
+                ->where('user_id', $userId)
+                ->increment('quantity');
+
+            return redirect()->back()
+                ->with('success', 'Item quantity increased in cart');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Failed to add to cart: ' . $e->getMessage());
+        }
     }
 
     public function updateQuantity(Request $request, int $id)
     {
-        $userId = auth()->id();
-        $quantity = $request['quantity'];
-        $affected = DB::table('carts')
-            ->where('book_id', '=', $id)
-            ->where('user_id', '=', $userId)
-            ->update(['quantity' => $quantity]);
-        return redirect()->route('cart.Page');
+        try {
+            $userId = auth()->id();
+            $quantity = $request->validate(['quantity' => 'required|integer|min:1'])['quantity'];
+
+            $affected = DB::table('carts')
+                ->where('book_id', $id)
+                ->where('user_id', $userId)
+                ->update(['quantity' => $quantity]);
+
+            if ($affected) {
+                return redirect()->route('cart.Page')
+                    ->with('success', 'Quantity updated successfully');
+            }
+
+            return redirect()->route('cart.Page')
+                ->with('info', 'No changes made to quantity');
+
+        } catch (\Exception $e) {
+            return redirect()->route('cart.Page')
+                ->with('error', 'Failed to update quantity: ' . $e->getMessage());
+        }
+
     }
 }

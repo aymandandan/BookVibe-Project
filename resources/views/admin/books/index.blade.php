@@ -1,0 +1,85 @@
+@extends('layouts.admin')
+
+@section('content')
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">Manage Books</h1>
+            <a href="{{ route('admin.books.create') }}"
+                class="w-auto px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors flex items-center justify-center gap-2">
+                + Add New Book
+            </a>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="mb-6 bg-white rounded-lg shadow-sm p-4">
+            <form action="{{ route('admin.books.index') }}" method="GET" class="flex flex-col md:flex-row gap-2">
+                <div class="flex-1 relative">
+                    <input type="text" name="search" placeholder="Search books by title, author, or category..."
+                        value="{{ request('search') }}"
+                        class="w-full pl-4 pr-10 py-2 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500">
+                </div>
+
+                <div class="flex gap-2">
+                    <button type="submit"
+                        class="w-full md:w-auto px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2">
+                        <span class="hidden md:inline">Search</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+
+                    @if (request()->has('search'))
+                        <a href="{{ route('admin.books.index') }}"
+                            class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors flex items-center justify-center gap-2">
+                            Clear
+                        </a>
+                    @endif
+                </div>
+            </form>
+        </div>
+
+        <!-- Books Table -->
+        <div class="bg-white rounded-lg shadow overflow-hidden overflow-x-auto border border-gray-200">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Author</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Price</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stock</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @forelse($books as $book)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4"><a href="{{ route('book.show', $book) }}">{{ $book->title }}</a></td>
+                            <td class="px-6 py-4">{{ $book->author->name }}</td>
+                            <td class="px-6 py-4">${{ number_format($book->price, 2) }}</td>
+                            <td class="px-6 py-4">{{ $book->stock_qty }}</td>
+                            <td class="px-6 py-4 space-x-2">
+                                <a href="{{ route('admin.books.edit', $book->id) }}"
+                                    class="text-primary-500 hover:text-primary-600">Edit</a>
+                                <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" class="inline">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:text-red-600"
+                                        onclick="return confirm('Delete this book permanently?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">No books found</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-4">
+            {{ $books->links() }}
+        </div>
+    </div>
+@endsection

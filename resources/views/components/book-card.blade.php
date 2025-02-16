@@ -31,14 +31,13 @@
 
     <div class="w-auto flex flex-row gap-2 justify-between mt-auto">
         <form class="w-full" action="{{ route('add.Cart', $book->id) }}" method="POST">
+            <!-- Add to Cart Button-->
             <form class="w-full" action="{{ route('add.Cart', $book->id) }}" method="POST">
                 @csrf
-
-                <button
-                    class="w-full bg-primary-500 rounded-xl shadow text-grey-100 py-1 sm:px-1 px-2 hover:bg-primary-400 hover:text-white transition ease-in-out duration-150">
-                    {{ __('ADD TO CART') }}
+                <button @disabled($book->type == 'hard_book' && $book->stock_qty <= 0)
+                    class="w-full bg-primary-500 uppercase rounded-xl shadow text-grey-100 py-1 sm:px-1 px-2 hover:bg-primary-400 hover:text-white transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
+                    {{ $book->type == 'hard_book' && $book->stock_qty <= 0 ? __('Out Of Stock') : __('Add to Cart') }}
                 </button>
-
             </form>
 
             <!-- Add to Wishlist Button -->

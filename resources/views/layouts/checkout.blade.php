@@ -33,6 +33,8 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <x-messages />
         </div>
     </body>
 
