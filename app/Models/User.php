@@ -58,4 +58,14 @@ class User extends Authenticatable
     {
         return Auth::user()->type == 'admin';
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }
