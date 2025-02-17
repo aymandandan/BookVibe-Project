@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
             'type' => 'admin'
         ]);
 
-        Category::factory(5)->create();
-        Author::factory(5)->create();
-        Book::factory(30)->create();
+        // Category::factory(5)->create();
+        // Author::factory(5)->create();
+        // Book::factory(30)->create();
     }
 }
