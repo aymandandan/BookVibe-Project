@@ -10,7 +10,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/checkout', [checkoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [checkoutController::class, 'processCheckout'])->name('checkout_validation');
+    //Route::post('/checkout', [checkoutController::class, 'processCheckout'])->name('checkout_validation');
 });
 
 require __DIR__ . '/auth.php';
