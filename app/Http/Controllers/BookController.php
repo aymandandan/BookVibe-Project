@@ -24,6 +24,7 @@ class BookController extends Controller
             ->when($search, function ($query) use ($search) {
                 return $query->where('title', 'like', "%$search%");
             })
+            ->orderBy('created_at', 'DESC')
             ->paginate(10);
 
         return view('admin.books.index', compact('books', 'search'));
