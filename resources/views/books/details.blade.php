@@ -19,9 +19,9 @@
 
                 {{-- Author --}}
                 @if ($author)
-                    <p class="text-lg font-serif text-indigo-500">
+                    <a href="{{ route('authorPage', $author->id) }}" class="text-lg font-serif text-indigo-500">
                         {{ $author->name . __(' (Author)') }}
-                    </p>
+                    </a>
                 @endif
 
                 {{-- Price --}}
