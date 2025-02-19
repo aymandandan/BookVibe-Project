@@ -82,10 +82,10 @@ Access: `http://localhost:8000`
 ---
 
 ## 🔐 Default Accounts
-    Run Database Seed to add the default admin account:
-    ```bash
-    php artisan db:seed
-    ```
+Run Database Seed to add the default admin account:
+```bash
+php artisan db:seed
+```
 | Role   | Email                 | Password     |
 |--------|-----------------------|--------------|
 | Admin  | adminTest@example.com | admin@ccount |
