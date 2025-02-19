@@ -47,6 +47,7 @@ class AuthorController extends Controller
         $authors = Author::when($search, function ($query) use ($search) {
             return $query->where('name', 'like', "%$search%");
         })
+            ->orderBy('created_at', 'DESC')
             ->paginate(10);
 
         return view('admin.authors.index', compact('authors', 'search'));

@@ -11,7 +11,7 @@ use Storage;
 
 class BookController extends Controller
 {
-    private $defaultCover = 'storage/assets/pictures/BookCovers/Default_Img_Cover.jpg';
+    private $defaultCover = 'assets/pictures/BookCovers/Default_Img_Cover.jpg';
 
     /**
      * Display a listing of the resource.
@@ -24,6 +24,7 @@ class BookController extends Controller
             ->when($search, function ($query) use ($search) {
                 return $query->where('title', 'like', "%$search%");
             })
+            ->orderBy('created_at', 'DESC')
             ->paginate(10);
 
         return view('admin.books.index', compact('books', 'search'));
@@ -214,7 +215,7 @@ class BookController extends Controller
                 $this->deleteFileIfExists($book->cover_img);
             }
 
-            return 'storage/' . $path;
+            return $path;
         }
 
         return $book->cover_img ?? $this->defaultCover;
@@ -241,7 +242,7 @@ class BookController extends Controller
                 $this->deleteFileIfExists($book->file_path);
             }
 
-            return 'storage/' . $path;
+            return $path;
         }
 
         return $book->file_path ?? null;
@@ -253,11 +254,8 @@ class BookController extends Controller
             return;
         }
 
-        // Remove 'storage/' prefix to get correct path
-        $relativePath = str_replace('storage/', '', $path);
-
-        if (Storage::disk('public')->exists($relativePath)) {
-            Storage::disk('public')->delete($relativePath);
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
         }
     }
 }
